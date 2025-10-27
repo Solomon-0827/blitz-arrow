@@ -1,0 +1,27 @@
+{
+  "Day": "天",
+  "Hour": "小时",
+  "Minute": "分钟",
+  "Month": "月",
+  "NoLimit": "无限制",
+  "Year": "年",
+  "global_map_description": "跨全球位置的安全连接。从任何地方可靠地访问您的网络资源。",
+  "global_map_itle": "全球网络覆盖",
+  "locations": "地区",
+  "product_showcase_description": "A list of currently active for service subscription.",
+  "product_showcase_title": "Plans",
+  "servers": "服务器",
+  "accessSecure": "访问安全仪表板",
+  "started": "开始使用",
+  "subscribe": "订阅",
+  "tos": "服务协议",
+  "users": "用户",
+  "welcome": "安全网络解决方案提供商"
+  , "feature_how_title": "如何工作"
+  , "feature_how_desc": "您的网络流量将被封装并混淆为常规 Web 请求，在出口节点解封装。有效防止中间人篡改，并几乎与普通流量无异。"
+  , "feature_smart_title": "智能分流"
+  , "feature_smart_desc": "客户端会智能区分国内与国际流量，默认避免不必要的成本。您也可随时选择全局代理或完全直连。"
+  , "feature_devices_title": "一份订阅，覆盖全设备"
+  , "feature_devices_desc": "支持 macOS、Windows、Linux，并可部署于路由器。设备并发登录数量随套餐限制，随时可升级以获得更多。"
+  , "feature_row_title": "不止于此"
+}

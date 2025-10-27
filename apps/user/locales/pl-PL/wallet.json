@@ -1,0 +1,18 @@
+{
+  "amount": "kwota",
+  "assetOverview": "Przegląd aktywów",
+  "balance": "saldo",
+  "commission": "Prowizja",
+  "createdAt": "czas",
+  "giftAmount": "Kwota Prezentu",
+  "totalAssets": "Przegląd aktywów",
+  "type": {
+    "0": "Typ",
+    "1": "Doładowanie",
+    "2": "Wypłata",
+    "3": "Zakup",
+    "4": "Zwrot",
+    "5": "Nagroda",
+    "6": "Prowizja"
+  }
+}

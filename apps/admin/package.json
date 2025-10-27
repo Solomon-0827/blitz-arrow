@@ -1,0 +1,97 @@
+{
+  "name": "ppanel-admin-web",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "NODE_NO_WARNINGS=1 next dev --turbopack",
+    "lint": "next lint && tsc --noEmit",
+    "locale": "lobe-i18n --with-md",
+    "openapi": "openapi2ts",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.10.0",
+    "@lottiefiles/dotlottie-react": "^0.12.1",
+    "@tanstack/react-query": "^5.63.0",
+    "@tanstack/react-query-next-experimental": "^5.63.0",
+    "@workspace/ui": "workspace:*",
+    "ahooks": "^3.8.4",
+    "axios": "^1.7.9",
+    "date-fns": "^4.1.0",
+    "js-yaml": "^4.1.0",
+    "lucide-react": "^0.469.0",
+    "nanoid": "^5.0.9",
+    "next": "^15.1.4",
+    "next-intl": "^3.26.3",
+    "next-runtime-env": "^3.2.2",
+    "next-themes": "^0.4.4",
+    "nextjs-toploader": "^3.7.15",
+    "radash": "^12.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
+    "react-turnstile": "^1.1.4",
+    "recharts": "^2.15.0",
+    "sonner": "^1.7.2",
+    "universal-cookie": "^7.2.2",
+    "zod": "^3.24.1",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.4",
+    "@types/react-dom": "^19.0.2",
+    "@types/rtl-detect": "^1.0.3",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
+  },
+  "i18n": {
+    "entry": "./locales/en-US",
+    "entryLocale": "en-US",
+    "output": "./locales",
+    "saveImmediately": true,
+    "concurrency": 10,
+    "outputLocales": [
+      "cs-CZ",
+      "de-DE",
+      "en-US",
+      "es-ES",
+      "es-MX",
+      "fa-IR",
+      "fi-FI",
+      "fr-FR",
+      "hi-IN",
+      "hu-HU",
+      "ja-JP",
+      "ko-KR",
+      "no-NO",
+      "pl-PL",
+      "pt-BR",
+      "ro-RO",
+      "ru-RU",
+      "th-TH",
+      "tr-TR",
+      "uk-UA",
+      "vi-VN",
+      "zh-CN",
+      "zh-HK"
+    ],
+    "modelName": "gpt-4o-mini",
+    "experimental": {
+      "jsonMode": true
+    },
+    "markdown": {
+      "entry": [
+        "./README.md"
+      ],
+      "outputLocales": [
+        "zh-CN"
+      ]
+    }
+  }
+}

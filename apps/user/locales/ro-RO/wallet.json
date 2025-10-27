@@ -1,0 +1,18 @@
+{
+  "amount": "Sumă",
+  "assetOverview": "Prezentare generală a activelor",
+  "balance": "Sold",
+  "commission": "Comision",
+  "createdAt": "Timp",
+  "giftAmount": "Sumă cadou",
+  "totalAssets": "Prezentare generală a activelor",
+  "type": {
+    "0": "Tip",
+    "1": "Reîncărcare",
+    "2": "Retragere",
+    "3": "Cumpărare",
+    "4": "Rambursare",
+    "5": "Recompensă",
+    "6": "Comision"
+  }
+}

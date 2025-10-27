@@ -1,0 +1,121 @@
+# Google Cloud Build 配置文件
+# 用于 CI/CD 自动部署到 Cloud Run
+
+# 用户端应用构建和部署
+steps:
+  # 构建用户端 Docker 镜像
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-user-web'
+    args:
+      - 'build'
+      - '-f'
+      - 'docker/ppanel-user-web/Dockerfile.cloudrun'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/ppanel-user-web:$SHORT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/ppanel-user-web:latest'
+      - '.'
+
+  # 推送用户端镜像到 Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-user-web'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'gcr.io/$PROJECT_ID/ppanel-user-web'
+    waitFor: ['build-user-web']
+
+  # 部署用户端到 Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'deploy-user-web'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'ppanel-user-web'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/ppanel-user-web:$SHORT_SHA'
+      - '--region'
+      - 'asia-east1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--memory'
+      - '1Gi'
+      - '--cpu'
+      - '1'
+      - '--port'
+      - '3000'
+      - '--min-instances'
+      - '0'
+      - '--max-instances'
+      - '10'
+    waitFor: ['push-user-web']
+
+  # 构建管理端 Docker 镜像
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-admin-web'
+    args:
+      - 'build'
+      - '-f'
+      - 'docker/ppanel-admin-web/Dockerfile.cloudrun'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/ppanel-admin-web:$SHORT_SHA'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/ppanel-admin-web:latest'
+      - '.'
+
+  # 推送管理端镜像到 Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-admin-web'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'gcr.io/$PROJECT_ID/ppanel-admin-web'
+    waitFor: ['build-admin-web']
+
+  # 部署管理端到 Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'deploy-admin-web'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'ppanel-admin-web'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/ppanel-admin-web:$SHORT_SHA'
+      - '--region'
+      - 'asia-east1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--memory'
+      - '1Gi'
+      - '--cpu'
+      - '1'
+      - '--port'
+      - '3000'
+      - '--min-instances'
+      - '0'
+      - '--max-instances'
+      - '5'
+    waitFor: ['push-admin-web']
+
+# 构建超时时间
+timeout: '1800s'
+
+# 构建选项
+options:
+  machineType: 'E2_HIGHCPU_8'
+  diskSizeGb: 100
+  logging: CLOUD_LOGGING_ONLY
+
+# 构建产物
+images:
+  - 'gcr.io/$PROJECT_ID/ppanel-user-web:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/ppanel-user-web:latest'
+  - 'gcr.io/$PROJECT_ID/ppanel-admin-web:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/ppanel-admin-web:latest'
+
+# 替换变量（可以在触发器中配置）
+substitutions:
+  _DEPLOY_REGION: 'asia-east1'
+

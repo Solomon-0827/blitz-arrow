@@ -1,0 +1,118 @@
+# 依赖文件
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# 测试覆盖率
+coverage/
+*.lcov
+.nyc_output
+
+# Next.js 构建输出
+.next/
+out/
+build/
+dist/
+
+# Turbo
+.turbo/
+
+# 环境变量文件
+.env
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 但允许示例文件
+!env.example
+!env.*.example
+!.env.example
+
+# 日志文件
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 调试
+.DS_Store
+
+# 编辑器和IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# 可选的npm缓存目录
+.npm
+
+# 可选的eslint缓存
+.eslintcache
+
+# Microbundle缓存
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# 可选的REPL历史
+.node_repl_history
+
+# 输出的npm包
+*.tgz
+
+# Yarn完整性文件
+.yarn-integrity
+
+# 临时文件
+*.tmp
+*.temp
+.cache/
+
+# Vercel
+.vercel
+
+# Netlify
+.netlify/
+
+# Sentry
+.sentryclirc
+
+# PWA files
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map
+
+# 操作系统文件
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# 临时脚本（根据需要调整）
+add_announcement_keys.js
+add_quick_action_keys.js
+

@@ -1,0 +1,20 @@
+{
+  "Day": "วัน",
+  "Hour": "ชั่วโมง",
+  "Minute": "นาที",
+  "Month": "เดือน",
+  "NoLimit": "ไม่มีขีดจำกัด",
+  "Year": "ปี",
+  "global_map_description": "สำรวจการเชื่อมต่อทั่วโลกที่ไร้รอยต่อ เลือกบริการเครือข่ายที่ตรงกับความต้องการของคุณ เพื่อให้คุณเชื่อมต่อได้ทุกที่ทุกเวลา",
+  "global_map_itle": "เชื่อมต่อทั่วโลกได้อย่างง่ายดายและไร้กังวล",
+  "locations": "ภูมิภาค",
+  "product_showcase_description": "A list of currently active for service subscription.",
+  "product_showcase_title": "Plans",
+  "servers": "เซิร์ฟเวอร์",
+  "accessSecure": "Access Secure Dashboard",
+  "started": "เริ่มต้นใช้งาน",
+  "subscribe": "สมัครสมาชิก",
+  "tos": "ข้อตกลงการให้บริการ",
+  "users": "ผู้ใช้",
+  "welcome": "ยินดีต้อนรับสู่"
+}

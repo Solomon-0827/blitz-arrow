@@ -1,0 +1,18 @@
+{
+  "amount": "Beløp",
+  "assetOverview": "Eiendomsoversikt",
+  "balance": "Balanse",
+  "commission": "Kommisjon",
+  "createdAt": "Tid",
+  "giftAmount": "Gavebeløp",
+  "totalAssets": "Eiendelsoversikt",
+  "type": {
+    "0": "Type",
+    "1": "Innskudd",
+    "2": "Uttak",
+    "3": "Kjøp",
+    "4": "Refusjon",
+    "5": "Belønning",
+    "6": "Kommisjon"
+  }
+}

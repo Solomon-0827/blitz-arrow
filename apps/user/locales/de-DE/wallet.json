@@ -1,0 +1,18 @@
+{
+  "amount": "Betrag",
+  "assetOverview": "Vermögensübersicht",
+  "balance": "Kontostand",
+  "commission": "Provision",
+  "createdAt": "Zeit",
+  "giftAmount": "Geschenkbetrag",
+  "totalAssets": "Vermögensübersicht",
+  "type": {
+    "0": "Typ",
+    "1": "Aufladen",
+    "2": "Abheben",
+    "3": "Kaufen",
+    "4": "Rückerstattung",
+    "5": "Belohnung",
+    "6": "Provision"
+  }
+}

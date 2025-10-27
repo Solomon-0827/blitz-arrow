@@ -1,0 +1,18 @@
+{
+  "amount": "Montant",
+  "assetOverview": "Aperçu des actifs",
+  "balance": "Solde",
+  "commission": "Commission",
+  "createdAt": "temps",
+  "giftAmount": "Montant du cadeau",
+  "totalAssets": "Aperçu des actifs",
+  "type": {
+    "0": "Type",
+    "1": "Recharge",
+    "2": "Retrait",
+    "3": "Achat",
+    "4": "Remboursement",
+    "5": "Récompense",
+    "6": "Commission"
+  }
+}
