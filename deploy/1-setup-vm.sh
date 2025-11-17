@@ -26,7 +26,9 @@ sudo apt-get install -y \
     git \
     vim \
     htop \
-    ufw
+    ufw \
+    unzip \
+    wget
 
 # 安装 Docker
 echo "🐳 安装 Docker..."
