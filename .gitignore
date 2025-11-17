@@ -42,9 +42,6 @@ yarn-error.log*
 *~
 .DS_Store
 
-# Bun
-bun.lockb
-
 # Debug
 *.tsbuildinfo
 
