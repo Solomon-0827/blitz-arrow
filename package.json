@@ -1,0 +1,68 @@
+{
+  "name": "ppanel-web",
+  "version": "1.2.0",
+  "private": true,
+  "homepage": "https://github.com/perfect-panel/ppanel-web",
+  "bugs": {
+    "url": "https://github.com/perfect-panel/ppanel-web/issues/new"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/perfect-panel/ppanel-web.git"
+  },
+  "license": "GUN",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "clean": "./scripts/clean.sh",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "locale": "turbo locale && bun prettier",
+    "openapi": "turbo openapi && bun prettier",
+    "prepare": "./scripts/prepare.sh",
+    "prettier": "prettier --write \"**/*.{ts,tsx,js,jsx,cjs,mjs,md,json}\"",
+    "release": "semantic-release",
+    "update:deps": "./scripts/update-deps.sh",
+    "update:shadcn": "./scripts/update-shadcn-ui.sh && bun prettier"
+  },
+  "commitlint": {
+    "extends": [
+      "@workspace/commitlint-config"
+    ]
+  },
+  "lint-staged": {
+    "*.{json,md}": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ],
+    "*.{js,jsx,cjs,mjs}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{ts,tsx}": [
+      "prettier --parser=typescript --write",
+      "eslint --fix"
+    ]
+  },
+  "prettier": "@workspace/prettier-config",
+  "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.11.6",
+    "@umijs/openapi": "^1.13.0",
+    "@workspace/commitlint-config": "workspace:*",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/prettier-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "semantic-release": "21.1.2",
+    "semantic-release-config-gitmoji": "^1.5.3",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.3"
+  },
+  "packageManager": "bun@1.1.43",
+  "engines": {
+    "node": ">=20"
+  }
+}

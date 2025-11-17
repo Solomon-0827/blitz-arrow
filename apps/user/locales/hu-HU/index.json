@@ -1,0 +1,20 @@
+{
+  "Day": "Nap",
+  "Hour": "Óra",
+  "Minute": "Perc",
+  "Month": "Hónap",
+  "NoLimit": "Nincs Korlát",
+  "Year": "Év",
+  "global_map_description": "Fedezze fel a zökkenőmentes globális kapcsolatot. Válassza ki az igényeinek megfelelő hálózati szolgáltatást, és maradjon kapcsolatban bárhol, bármikor.",
+  "global_map_itle": "Globális összeköttetés, könnyedén és gondtalanul",
+  "locations": "Helyszínek",
+  "product_showcase_description": "A list of currently active for service subscription.",
+  "product_showcase_title": "Plans",
+  "servers": "szerverek",
+  "accessSecure": "Access Secure Dashboard",
+  "started": "Kezdés",
+  "subscribe": "Feliratkozás",
+  "tos": "Szolgáltatási feltételek",
+  "users": "felhasználók",
+  "welcome": "Üdvözöljük"
+}

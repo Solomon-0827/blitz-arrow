@@ -1,0 +1,27 @@
+{
+  "Day": "日",
+  "Hour": "時間",
+  "Minute": "分",
+  "Month": "月",
+  "NoLimit": "制限なし",
+  "Year": "年",
+  "global_map_description": "シームレスなグローバル接続を探索しましょう。あなたのニーズに合ったネットワークサービスを選び、いつでもどこでも接続を維持しましょう。",
+  "global_map_itle": "世界をつなぎ、安心を提供",
+  "locations": "地域",
+  "product_showcase_description": "A list of currently active for service subscription.",
+  "product_showcase_title": "Plans",
+  "servers": "サーバー",
+  "accessSecure": "Access Secure Dashboard",
+  "started": "開始する",
+  "subscribe": "購読",
+  "tos": "サービス利用規約",
+  "users": "ユーザー",
+  "welcome": "ようこそ"
+  , "feature_how_title": "どのように動作しますか"
+  , "feature_how_desc": "通信は通常のWebリクエストとしてパック・難読化され、出口ノードで復元されます。中間者攻撃のリスクを抑え、通常トラフィックとほぼ見分けがつきません。"
+  , "feature_smart_title": "スマートトラフィック制御"
+  , "feature_smart_desc": "クライアントは国内・海外トラフィックを自動で分離し、余計なコストを回避します。必要に応じて全通信のプロキシ化や無効化も選べます。"
+  , "feature_devices_title": "1つのサブスクで全デバイス"
+  , "feature_devices_desc": "macOS、Windows、Linuxで利用可能。ルーターへの導入も可能です。同時ログイン台数にはプランごとの制限がありますが、上位プランにいつでもアップグレードできます。"
+  , "feature_row_title": "こだわりの設計"
+}
