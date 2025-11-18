@@ -39,7 +39,40 @@ if ! docker info | grep -q "Username"; then
 fi
 
 echo "========================================="
-echo "第一步：构建 Next.js 应用"
+echo "第一步：配置环境变量"
+echo "========================================="
+echo ""
+
+VM_IP="34.177.90.11"
+
+# 配置 Admin 环境变量
+echo "📝 配置 Admin 环境变量..."
+cat > apps/admin/.env.local << EOF
+# PPanel Admin 环境配置
+# 自动生成于: $(date)
+
+NEXT_PUBLIC_API_URL=http://${VM_IP}:8080
+NEXT_PUBLIC_SITE_URL=http://${VM_IP}:3000
+EOF
+
+# 配置 User 环境变量
+echo "📝 配置 User 环境变量..."
+cat > apps/user/.env.local << EOF
+# PPanel User 环境配置
+# 自动生成于: $(date)
+
+NEXT_PUBLIC_API_URL=http://${VM_IP}:8080
+NEXT_PUBLIC_SITE_URL=http://${VM_IP}:3001
+EOF
+
+echo "✓ 环境变量配置完成"
+echo "   后端 API: http://${VM_IP}:8080"
+echo "   Admin: http://${VM_IP}:3000"
+echo "   User: http://${VM_IP}:3001"
+echo ""
+
+echo "========================================="
+echo "第二步：构建 Next.js 应用"
 echo "========================================="
 echo ""
 
@@ -49,7 +82,7 @@ rm -rf apps/admin/.next apps/user/.next 2>/dev/null || true
 
 # 安装依赖
 echo "📦 安装依赖..."
-bun install --frozen-lockfile
+bun install
 
 # 构建应用
 echo "🔨 构建 Next.js 应用..."
@@ -70,7 +103,7 @@ echo "✓ 应用构建成功"
 echo ""
 
 echo "========================================="
-echo "第二步：构建并推送 Docker 镜像"
+echo "第三步：构建并推送 Docker 镜像"
 echo "========================================="
 echo ""
 
