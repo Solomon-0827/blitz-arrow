@@ -203,7 +203,6 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://api.ppanel.dev
       - PORT=3000
       - HOSTNAME=0.0.0.0
     logging:
@@ -220,7 +219,6 @@ services:
       - "3001:3000"
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://api.ppanel.dev
       - PORT=3000
       - HOSTNAME=0.0.0.0
     logging:
