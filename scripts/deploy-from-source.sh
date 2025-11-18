@@ -23,23 +23,40 @@ fi
 
 PROJECT_ROOT=$(pwd)
 
-# 检查 Docker 是否运行
+# 检查并安装 Docker
 if ! docker info > /dev/null 2>&1; then
-    echo "❌ Docker 未运行，请先运行 ./deploy/1-setup-vm.sh"
-    exit 1
+    echo "📦 Docker 未安装，正在安装..."
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo sh get-docker.sh
+    sudo usermod -aG docker $USER
+    echo "✓ Docker 安装完成"
+    echo "⚠️  请退出并重新登录以使 Docker 组权限生效，然后重新运行此脚本"
+    exit 0
 fi
 
-# 检查 Bun 是否安装
+echo "✓ Docker 已安装"
+
+# 检查并安装 Bun
 if ! command -v bun &> /dev/null; then
-    echo "📦 安装 Bun..."
+    echo "📦 Bun 未安装，正在安装..."
     curl -fsSL https://bun.sh/install | bash
+    
+    # 配置环境变量
     export BUN_INSTALL="$HOME/.bun"
     export PATH="$BUN_INSTALL/bin:$PATH"
     
+    # 添加到 bashrc
+    if ! grep -q "BUN_INSTALL" ~/.bashrc; then
+        echo 'export BUN_INSTALL="$HOME/.bun"' >> ~/.bashrc
+        echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> ~/.bashrc
+    fi
+    
+    # 验证安装
     if ! command -v bun &> /dev/null; then
-        echo "❌ Bun 安装失败"
+        echo "❌ Bun 安装失败，请手动安装"
         exit 1
     fi
+    echo "✓ Bun 安装完成"
 fi
 
 echo "✓ Bun 版本: $(bun --version)"
