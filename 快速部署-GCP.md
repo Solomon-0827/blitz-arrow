@@ -1,6 +1,6 @@
 # ⚡ 前端快速部署 - GCP
 
-VM IP: **136.110.11.215**
+VM IP: **34.177.90.11**
 
 ---
 
@@ -14,7 +14,7 @@ VM IP: **136.110.11.215**
 
 ```bash
 # 1. SSH 连接虚拟机
-ssh user@136.110.11.215
+ssh user@34.177.90.11
 
 # 2. 克隆代码
 cd ~
@@ -30,8 +30,8 @@ chmod +x scripts/deploy-from-source.sh
 
 ## 🌐 访问地址
 
-- **Admin**: http://136.110.11.215:3000
-- **User**: http://136.110.11.215:3001
+- **Admin**: http://34.177.90.11:3000
+- **User**: http://34.177.90.11:3001
 
 ---
 
@@ -41,12 +41,12 @@ chmod +x scripts/deploy-from-source.sh
 
 ```bash
 # apps/admin/.env.local
-NEXT_PUBLIC_API_URL=http://136.110.11.215:8080
-NEXT_PUBLIC_SITE_URL=http://136.110.11.215:3000
+NEXT_PUBLIC_API_URL=http://34.177.90.11:8080
+NEXT_PUBLIC_SITE_URL=http://34.177.90.11:3000
 
 # apps/user/.env.local
-NEXT_PUBLIC_API_URL=http://136.110.11.215:8080
-NEXT_PUBLIC_SITE_URL=http://136.110.11.215:3001
+NEXT_PUBLIC_API_URL=http://34.177.90.11:8080
+NEXT_PUBLIC_SITE_URL=http://34.177.90.11:3001
 ```
 
 ---

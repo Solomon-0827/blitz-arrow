@@ -161,6 +161,36 @@ docker build \
 echo "✓ Docker 镜像构建成功"
 echo ""
 
+# 清理旧镜像，只保留最新的 2 个
+echo "🧹 清理旧镜像（保留最新 2 个）..."
+
+# 清理 Admin 镜像
+OLD_ADMIN_IMAGES=$(docker images "ppanel-admin" --format "{{.ID}} {{.CreatedAt}}" | \
+  sort -k2 -r | \
+  awk 'NR>2 {print $1}')
+if [ -n "$OLD_ADMIN_IMAGES" ]; then
+    for img_id in $OLD_ADMIN_IMAGES; do
+        echo "   删除旧 Admin 镜像: $img_id"
+        docker rmi -f $img_id 2>/dev/null || true
+    done
+fi
+
+# 清理 User 镜像
+OLD_USER_IMAGES=$(docker images "ppanel-user" --format "{{.ID}} {{.CreatedAt}}" | \
+  sort -k2 -r | \
+  awk 'NR>2 {print $1}')
+if [ -n "$OLD_USER_IMAGES" ]; then
+    for img_id in $OLD_USER_IMAGES; do
+        echo "   删除旧 User 镜像: $img_id"
+        docker rmi -f $img_id 2>/dev/null || true
+    done
+fi
+
+# 清理悬空镜像
+docker image prune -f >/dev/null 2>&1 || true
+echo "   ✓ 清理完成"
+echo ""
+
 echo "========================================="
 echo "第三步：部署应用"
 echo "========================================="
