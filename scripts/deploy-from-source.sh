@@ -53,7 +53,40 @@ if [ -d ".git" ]; then
 fi
 
 echo "========================================="
-echo "第一步：安装依赖并构建应用"
+echo "第一步：配置环境变量"
+echo "========================================="
+echo ""
+
+VM_IP="136.110.11.215"
+
+# 配置 Admin 环境变量
+echo "📝 配置 Admin 环境变量..."
+cat > apps/admin/.env.local << EOF
+# PPanel Admin 环境配置
+# 自动生成于: $(date)
+
+NEXT_PUBLIC_API_URL=http://${VM_IP}:8080
+NEXT_PUBLIC_SITE_URL=http://${VM_IP}:3000
+EOF
+
+# 配置 User 环境变量
+echo "📝 配置 User 环境变量..."
+cat > apps/user/.env.local << EOF
+# PPanel User 环境配置
+# 自动生成于: $(date)
+
+NEXT_PUBLIC_API_URL=http://${VM_IP}:8080
+NEXT_PUBLIC_SITE_URL=http://${VM_IP}:3001
+EOF
+
+echo "✓ 环境变量配置完成"
+echo "   后端 API: http://${VM_IP}:8080"
+echo "   Admin: http://${VM_IP}:3000"
+echo "   User: http://${VM_IP}:3001"
+echo ""
+
+echo "========================================="
+echo "第二步：安装依赖并构建应用"
 echo "========================================="
 echo ""
 
