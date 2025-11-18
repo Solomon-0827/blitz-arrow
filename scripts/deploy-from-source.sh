@@ -113,13 +113,7 @@ rm -rf apps/admin/.next apps/user/.next 2>/dev/null || true
 
 # 安装依赖
 echo "📦 安装依赖..."
-if [ -f "bun.lockb" ]; then
-    echo "   使用 lockfile 安装（确保版本一致）..."
-    bun install --frozen-lockfile
-else
-    echo "   首次安装依赖..."
-    bun install
-fi
+bun install
 
 # 构建应用
 echo "🔨 构建 Next.js 应用..."
