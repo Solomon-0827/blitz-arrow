@@ -19,3 +19,8 @@ services:
     restart: always
     ports:
       - 3002:3000
+
+networks:
+  default:
+    name: ppanel-network
+    external: true

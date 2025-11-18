@@ -110,6 +110,19 @@ EOF
 echo "🛑 停止旧容器..."
 docker compose -f /tmp/docker-compose-registry.yml down 2>/dev/null || true
 
+# 强制删除可能残留的容器
+echo "🧹 清理残留容器..."
+docker rm -f ppanel-admin ppanel-user 2>/dev/null || true
+
+# 清理可能存在的网络冲突
+echo "🔧 检查网络配置..."
+if docker network inspect ppanel-network >/dev/null 2>&1; then
+    echo "   网络 ppanel-network 已存在，将复用"
+else
+    echo "   创建网络 ppanel-network"
+    docker network create ppanel-network 2>/dev/null || true
+fi
+
 # 启动新容器
 echo "🚀 启动应用..."
 docker compose -f /tmp/docker-compose-registry.yml up -d
