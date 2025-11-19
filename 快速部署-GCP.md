@@ -1,28 +1,39 @@
-# ⚡ 前端快速部署 - GCP
+# ⚡ GCP 快速部署指南
 
 VM IP: **34.177.90.11**
 
 ---
 
-## ⚠️ 前提条件
-
-后端必须先部署完成！
-
----
-
 ## 🚀 部署步骤
 
-```bash
-# 1. SSH 连接虚拟机
-ssh user@34.177.90.11
+### 1. SSH 连接
 
-# 2. 克隆代码
+```bash
+ssh user@34.177.90.11
+```
+
+### 2. 部署后端
+
+```bash
+cd ~
+git clone YOUR_REPO_URL blitz-arrow-server
+cd blitz-arrow-server
+./scripts/deploy-from-source.sh
+```
+
+**首次部署需要初始化：**
+访问 http://34.177.90.11:8080/init 完成初始化
+- MySQL 主机: `mysql:3306`
+- MySQL 用户: `ppanel` 密码: `ppanel_password`
+- MySQL 数据库: `ppanel`
+- Redis: `redis:6379` (无密码)
+
+### 3. 部署前端
+
+```bash
 cd ~
 git clone YOUR_REPO_URL blitz-arrow
 cd blitz-arrow
-
-# 3. 一键部署（15-20 分钟，自动配置环境变量）
-chmod +x scripts/deploy-from-source.sh
 ./scripts/deploy-from-source.sh
 ```
 
@@ -32,33 +43,114 @@ chmod +x scripts/deploy-from-source.sh
 
 - **Admin**: http://34.177.90.11:3000
 - **User**: http://34.177.90.11:3001
+- **API**: http://34.177.90.11:8080
 
 ---
 
-## 📝 环境变量
-
-自动配置为：
+## 🔥 防火墙配置
 
 ```bash
-# apps/admin/.env.local
-NEXT_PUBLIC_API_URL=http://34.177.90.11:8080
-NEXT_PUBLIC_SITE_URL=http://34.177.90.11:3000
-
-# apps/user/.env.local
-NEXT_PUBLIC_API_URL=http://34.177.90.11:8080
-NEXT_PUBLIC_SITE_URL=http://34.177.90.11:3001
+gcloud compute firewall-rules create allow-ppanel-all \
+  --allow tcp:3000,tcp:3001,tcp:8080 \
+  --direction INGRESS
 ```
 
 ---
 
-## 🔄 更新
+## 📝 管理命令
 
+### 查看状态
 ```bash
+docker ps
+```
+
+### 查看日志
+```bash
+# 后端
+cd ~/blitz-arrow-server
+docker compose -f deploy/docker-compose.prod.yml logs -f server
+
+# 前端
 cd ~/blitz-arrow
+docker compose -f docker/docker-compose.yml logs -f
+```
+
+### 重启服务
+```bash
+# 后端
+cd ~/blitz-arrow-server
+docker compose -f deploy/docker-compose.prod.yml restart
+
+# 前端
+cd ~/blitz-arrow
+docker compose -f docker/docker-compose.yml restart
+```
+
+### 更新代码
+```bash
+# 后端
+cd ~/blitz-arrow-server
+git pull
+./scripts/deploy-from-source.sh
+
+# 前端
+cd ~/blitz-arrow
+git stash  # 暂存本地修改
 git pull
 ./scripts/deploy-from-source.sh
 ```
 
 ---
 
-详细文档：`../blitz-arrow-server/完整部署指南.md`
+## 🔄 重启后恢复
+
+GCP VM 重启后，Docker 服务会自动启动所有容器（配置了 `restart: always`）。
+
+**检查服务状态：**
+```bash
+docker ps
+```
+
+**如果容器未启动：**
+```bash
+# 启动后端
+cd ~/blitz-arrow-server
+docker compose -f deploy/docker-compose.prod.yml up -d
+
+# 启动前端
+cd ~/blitz-arrow
+docker compose -f docker/docker-compose.yml up -d
+```
+
+---
+
+## 🛠️ 故障排查
+
+### 查看容器日志
+```bash
+docker logs ppanel-server
+docker logs ppanel-admin
+docker logs ppanel-user
+```
+
+### 检查数据库
+```bash
+docker exec ppanel-mysql mysqladmin ping -h localhost
+```
+
+### 检查 Redis
+```bash
+docker exec ppanel-redis redis-cli ping
+```
+
+### 完全重新部署
+```bash
+# 停止并删除所有容器
+docker stop ppanel-mysql ppanel-redis ppanel-server ppanel-admin ppanel-user
+docker rm ppanel-mysql ppanel-redis ppanel-server ppanel-admin ppanel-user
+docker network rm ppanel-network
+
+# 重新部署
+cd ~/blitz-arrow-server && ./scripts/deploy-from-source.sh
+cd ~/blitz-arrow && ./scripts/deploy-from-source.sh
+```

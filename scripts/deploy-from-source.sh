@@ -190,56 +190,20 @@ echo "第三步：部署应用"
 echo "========================================="
 echo ""
 
-# 创建 docker-compose 配置
-cat > /tmp/docker-compose-local.yml << 'EOF'
-version: '3.8'
+# 使用项目中的 docker-compose 配置文件
+COMPOSE_FILE="${PROJECT_ROOT}/docker/docker-compose.yml"
 
-services:
-  admin:
-    image: ppanel-admin:local
-    container_name: ppanel-admin
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - PORT=3000
-      - HOSTNAME=0.0.0.0
-    networks:
-      - ppanel-network
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+if [ ! -f "$COMPOSE_FILE" ]; then
+    echo "❌ 配置文件不存在: $COMPOSE_FILE"
+    exit 1
+fi
 
-  user:
-    image: ppanel-user:local
-    container_name: ppanel-user
-    restart: always
-    ports:
-      - "3001:3000"
-    environment:
-      - NODE_ENV=production
-      - PORT=3000
-      - HOSTNAME=0.0.0.0
-    networks:
-      - ppanel-network
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-
-networks:
-  ppanel-network:
-    name: ppanel-network
-    external: true
-EOF
+echo "✓ 使用配置文件: docker/docker-compose.yml"
+echo ""
 
 # 停止旧容器
 echo "🛑 停止旧容器..."
-docker compose -f /tmp/docker-compose-local.yml down 2>/dev/null || true
+docker compose -f "$COMPOSE_FILE" down 2>/dev/null || true
 
 # 强制删除可能残留的容器
 echo "🧹 清理残留容器..."
@@ -261,7 +225,7 @@ fi
 
 # 启动新容器
 echo "🚀 启动应用..."
-docker compose -f /tmp/docker-compose-local.yml up -d
+docker compose -f "$COMPOSE_FILE" up -d
 
 # 等待容器启动
 echo "⏳ 等待容器启动..."
@@ -272,14 +236,14 @@ echo ""
 echo "========================================="
 echo "📊 容器状态"
 echo "========================================="
-docker compose -f /tmp/docker-compose-local.yml ps
+docker compose -f "$COMPOSE_FILE" ps
 
 # 显示日志
 echo ""
 echo "========================================="
 echo "📝 最近日志"
 echo "========================================="
-docker compose -f /tmp/docker-compose-local.yml logs --tail=20
+docker compose -f "$COMPOSE_FILE" logs --tail=20
 
 echo ""
 echo "========================================="
@@ -291,11 +255,9 @@ echo "   Admin 管理后台: http://$(curl -s ifconfig.me):3000"
 echo "   User  用户前端: http://$(curl -s ifconfig.me):3001"
 echo ""
 echo "📝 管理命令："
-echo "   查看日志: docker compose -f /tmp/docker-compose-local.yml logs -f"
-echo "   重启应用: docker compose -f /tmp/docker-compose-local.yml restart"
-echo "   停止应用: docker compose -f /tmp/docker-compose-local.yml down"
+echo "   查看日志: docker compose -f docker/docker-compose.yml logs -f"
+echo "   重启应用: docker compose -f docker/docker-compose.yml restart"
+echo "   停止应用: docker compose -f docker/docker-compose.yml down"
 echo "   更新应用: cd $PROJECT_ROOT && ./scripts/deploy-from-source.sh"
-echo ""
-echo "💡 提示：已将 docker-compose 配置保存到 /tmp/docker-compose-local.yml"
 echo ""
 

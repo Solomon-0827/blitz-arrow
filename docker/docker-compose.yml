@@ -1,28 +1,41 @@
+version: '3.8'
+
 services:
-  admin-web:
-    container_name: ppanel-admin-web
-    build:
-      context: ../
-      dockerfile: ./docker/ppanel-admin-web/Dockerfile
-    environment:
-      NEXT_PUBLIC_API_URL: 'https://api.ppanel.dev'
+  admin:
+    image: ppanel-admin:local
+    container_name: ppanel-admin
     restart: always
     ports:
-      - 3001:3000
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
     networks:
       - ppanel-network
-  user-web:
-    container_name: ppanel-user-web
-    build:
-      context: ../
-      dockerfile: ./docker/ppanel-user-web/Dockerfile
-    environment:
-      NEXT_PUBLIC_API_URL: 'https://api.ppanel.dev'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  user:
+    image: ppanel-user:local
+    container_name: ppanel-user
     restart: always
     ports:
-      - 3002:3000
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
     networks:
       - ppanel-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
   ppanel-network:

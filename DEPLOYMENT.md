@@ -252,43 +252,45 @@ EOF
 ### 查看容器状态
 
 ```bash
-# 方案 A
-docker compose -f /tmp/docker-compose-local.yml ps
-
-# 方案 B
-docker compose -f /tmp/docker-compose-registry.yml ps
+cd ~/blitz-arrow
+docker compose -f docker/docker-compose.yml ps
 ```
 
 ### 查看日志
 
 ```bash
+cd ~/blitz-arrow
+
 # 查看所有日志
-docker compose -f /tmp/docker-compose-local.yml logs
+docker compose -f docker/docker-compose.yml logs
 
 # 查看实时日志
-docker compose -f /tmp/docker-compose-local.yml logs -f
+docker compose -f docker/docker-compose.yml logs -f
 
 # 只看 admin 日志
-docker compose -f /tmp/docker-compose-local.yml logs -f admin
+docker compose -f docker/docker-compose.yml logs -f admin
 
 # 只看 user 日志
-docker compose -f /tmp/docker-compose-local.yml logs -f user
+docker compose -f docker/docker-compose.yml logs -f user
 ```
 
 ### 重启应用
 
 ```bash
+cd ~/blitz-arrow
+
 # 重启所有容器
-docker compose -f /tmp/docker-compose-local.yml restart
+docker compose -f docker/docker-compose.yml restart
 
 # 重启单个容器
-docker compose -f /tmp/docker-compose-local.yml restart admin
+docker compose -f docker/docker-compose.yml restart admin
 ```
 
 ### 停止应用
 
 ```bash
-docker compose -f /tmp/docker-compose-local.yml down
+cd ~/blitz-arrow
+docker compose -f docker/docker-compose.yml down
 ```
 
 ### 清理资源
