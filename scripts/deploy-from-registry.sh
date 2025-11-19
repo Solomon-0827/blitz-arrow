@@ -30,23 +30,7 @@ if [ -d ".git" ]; then
 fi
 
 echo "========================================="
-echo "步骤 1：拉取 Docker 镜像"
-echo "========================================="
-echo ""
-
-# 拉取 Admin 镜像
-echo "📥 拉取 Admin 镜像..."
-docker pull ${IMAGE_PREFIX}-admin:${VERSION}
-
-# 拉取 User 镜像
-echo "📥 拉取 User 镜像..."
-docker pull ${IMAGE_PREFIX}-user:${VERSION}
-
-echo "✓ 镜像拉取成功"
-echo ""
-
-echo "========================================="
-echo "步骤 2：部署应用"
+echo "步骤 1：部署应用"
 echo "========================================="
 echo ""
 
@@ -88,6 +72,10 @@ else
     echo "   创建网络 ppanel-network"
     docker network create ppanel-network 2>/dev/null || true
 fi
+
+# 拉取最新镜像
+echo "📥 拉取最新镜像..."
+docker compose -f "$COMPOSE_FILE" pull
 
 # 启动新容器
 echo "🚀 启动应用..."
