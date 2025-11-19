@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   admin:
-    image: ppanel-admin:local
+    image: ${IMAGE_ADMIN:-ppanel-admin:local}
     container_name: ppanel-admin
     restart: always
     ports:
@@ -20,7 +20,7 @@ services:
         max-file: "3"
 
   user:
-    image: ppanel-user:local
+    image: ${IMAGE_USER:-ppanel-user:local}
     container_name: ppanel-user
     restart: always
     ports:

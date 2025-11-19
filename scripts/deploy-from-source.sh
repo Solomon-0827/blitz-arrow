@@ -199,6 +199,7 @@ if [ ! -f "$COMPOSE_FILE" ]; then
 fi
 
 echo "✓ 使用配置文件: docker/docker-compose.yml"
+echo "   镜像来源: 本地构建 (ppanel-admin:local, ppanel-user:local)"
 echo ""
 
 # 停止旧容器

@@ -50,65 +50,31 @@ echo "步骤 2：部署应用"
 echo "========================================="
 echo ""
 
-# 创建 docker-compose 配置
-cat > /tmp/docker-compose-registry.yml << EOF
-version: '3.8'
+# 检查是否在项目根目录
+if [ ! -f "package.json" ]; then
+    echo "❌ 请在项目根目录运行此脚本"
+    exit 1
+fi
 
-services:
-  admin:
-    image: ${IMAGE_PREFIX}-admin:${VERSION}
-    container_name: ppanel-admin
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://api.ppanel.dev
-      - PORT=3000
-      - HOSTNAME=0.0.0.0
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+PROJECT_ROOT=$(pwd)
+COMPOSE_FILE="${PROJECT_ROOT}/docker/docker-compose.yml"
 
-  user:
-    image: ${IMAGE_PREFIX}-user:${VERSION}
-    container_name: ppanel-user
-    restart: always
-    ports:
-      - "3001:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://api.ppanel.dev
-      - PORT=3000
-      - HOSTNAME=0.0.0.0
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+if [ ! -f "$COMPOSE_FILE" ]; then
+    echo "❌ 配置文件不存在: $COMPOSE_FILE"
+    exit 1
+fi
 
-networks:
-  default:
-    name: ppanel-network
-EOF
+echo "✓ 使用配置文件: docker/docker-compose.yml"
+echo "   镜像来源: Docker Hub (${IMAGE_PREFIX}-admin:${VERSION}, ${IMAGE_PREFIX}-user:${VERSION})"
+echo ""
+
+# 设置环境变量供 docker-compose 使用
+export IMAGE_ADMIN="${IMAGE_PREFIX}-admin:${VERSION}"
+export IMAGE_USER="${IMAGE_PREFIX}-user:${VERSION}"
 
 # 停止旧容器
 echo "🛑 停止旧容器..."
-docker compose -f /tmp/docker-compose-registry.yml down 2>/dev/null || true
+docker compose -f "$COMPOSE_FILE" down 2>/dev/null || true
 
 # 强制删除可能残留的容器
 echo "🧹 清理残留容器..."
@@ -125,7 +91,7 @@ fi
 
 # 启动新容器
 echo "🚀 启动应用..."
-docker compose -f /tmp/docker-compose-registry.yml up -d
+docker compose -f "$COMPOSE_FILE" up -d
 
 # 等待容器启动
 echo "⏳ 等待容器启动..."
@@ -136,14 +102,14 @@ echo ""
 echo "========================================="
 echo "📊 容器状态"
 echo "========================================="
-docker compose -f /tmp/docker-compose-registry.yml ps
+docker compose -f "$COMPOSE_FILE" ps
 
 # 显示日志
 echo ""
 echo "========================================="
 echo "📝 最近日志"
 echo "========================================="
-docker compose -f /tmp/docker-compose-registry.yml logs --tail=20
+docker compose -f "$COMPOSE_FILE" logs --tail=20
 
 echo ""
 echo "========================================="
@@ -155,8 +121,8 @@ echo "   Admin 管理后台: http://$(curl -s ifconfig.me):3000"
 echo "   User  用户前端: http://$(curl -s ifconfig.me):3001"
 echo ""
 echo "📝 管理命令："
-echo "   查看日志: docker compose -f /tmp/docker-compose-registry.yml logs -f"
-echo "   重启应用: docker compose -f /tmp/docker-compose-registry.yml restart"
-echo "   停止应用: docker compose -f /tmp/docker-compose-registry.yml down"
+echo "   查看日志: docker compose -f docker/docker-compose.yml logs -f"
+echo "   重启应用: docker compose -f docker/docker-compose.yml restart"
+echo "   停止应用: docker compose -f docker/docker-compose.yml down"
 echo ""
 
