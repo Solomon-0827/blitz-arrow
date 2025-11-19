@@ -51,8 +51,12 @@ cat > apps/admin/.env.local << EOF
 # PPanel Admin 环境配置
 # 自动生成于: $(date)
 
+# 浏览器端访问（外部 IP）
 NEXT_PUBLIC_API_URL=http://${VM_IP}:8080
 NEXT_PUBLIC_SITE_URL=http://${VM_IP}:3000
+
+# 服务端访问（容器内部网络）
+INTERNAL_API_URL=http://ppanel-server:8080
 EOF
 
 # 配置 User 环境变量
@@ -61,8 +65,12 @@ cat > apps/user/.env.local << EOF
 # PPanel User 环境配置
 # 自动生成于: $(date)
 
+# 浏览器端访问（外部 IP）
 NEXT_PUBLIC_API_URL=http://${VM_IP}:8080
 NEXT_PUBLIC_SITE_URL=http://${VM_IP}:3001
+
+# 服务端访问（容器内部网络）
+INTERNAL_API_URL=http://ppanel-server:8080
 EOF
 
 echo "✓ 环境变量配置完成"

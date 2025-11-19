@@ -21,7 +21,9 @@ async function handleError(response: any) {
 }
 
 const requset = axios.create({
-  baseURL: NEXT_PUBLIC_API_URL || NEXT_PUBLIC_SITE_URL,
+  baseURL: isBrowser() 
+    ? NEXT_PUBLIC_API_URL 
+    : (process.env.INTERNAL_API_URL || NEXT_PUBLIC_API_URL),
   // timeout: 10000,
   // withCredentials: true,
 });
