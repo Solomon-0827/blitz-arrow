@@ -9,6 +9,8 @@ services:
     restart: always
     ports:
       - 3001:3000
+    networks:
+      - ppanel-network
   user-web:
     container_name: ppanel-user-web
     build:
@@ -19,8 +21,10 @@ services:
     restart: always
     ports:
       - 3002:3000
+    networks:
+      - ppanel-network
 
 networks:
-  default:
+  ppanel-network:
     name: ppanel-network
     external: true

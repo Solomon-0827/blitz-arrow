@@ -205,6 +205,8 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - HOSTNAME=0.0.0.0
+    networks:
+      - ppanel-network
     logging:
       driver: "json-file"
       options:
@@ -221,6 +223,8 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - HOSTNAME=0.0.0.0
+    networks:
+      - ppanel-network
     logging:
       driver: "json-file"
       options:
@@ -228,8 +232,9 @@ services:
         max-file: "3"
 
 networks:
-  default:
+  ppanel-network:
     name: ppanel-network
+    external: true
 EOF
 
 # 停止旧容器
@@ -240,13 +245,18 @@ docker compose -f /tmp/docker-compose-local.yml down 2>/dev/null || true
 echo "🧹 清理残留容器..."
 docker rm -f ppanel-admin ppanel-user 2>/dev/null || true
 
-# 清理可能存在的网络冲突
+# 检查网络是否存在（应该由后端服务创建）
 echo "🔧 检查网络配置..."
 if docker network inspect ppanel-network >/dev/null 2>&1; then
-    echo "   网络 ppanel-network 已存在，将复用"
+    echo "   ✓ 网络 ppanel-network 已存在（后端创建）"
 else
-    echo "   创建网络 ppanel-network"
-    docker network create ppanel-network 2>/dev/null || true
+    echo "   ⚠️  网络 ppanel-network 不存在，正在创建..."
+    echo "   （通常此网络应该由后端服务创建）"
+    docker network create ppanel-network 2>/dev/null || {
+        echo "   ❌ 创建网络失败，请先部署后端服务"
+        exit 1
+    }
+    echo "   ✓ 网络创建成功"
 fi
 
 # 启动新容器
